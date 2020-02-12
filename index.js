@@ -231,6 +231,11 @@ program
 				console.log('Successfully created destructiveChanges.xml in %s',buildDir);
 			});
 		}
-	});
+	})
+	.parse(process.argv)
+	{
+		if (process.argv.length < 3)
+			program.help();
+	};
 
 program.parse(process.argv);
