@@ -29,7 +29,7 @@ If you need to contribute, modify or amend this package, clone the repo (if you 
 
 Command line representation here:
 ```
-git clone https://github.ibm.com/BLUEWOLFANZ/sf-packager
+git clone https://github.com/vorno-crole/sf-packager
 cd sf-packager
 npm link
 ```
