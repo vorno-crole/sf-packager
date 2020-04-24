@@ -24,7 +24,7 @@ var debugMsgs = false;
 
 
 program
-	.arguments('<compare> <branch> [target]')
+	.arguments('<compare> <branch> <target>')
 	.version(packageVersion)
 	.option('-d, --dryrun', 'Only print the package.xml and destructiveChanges.xml that would be generated')
 	.option('-p, --pversion [version]', 'Salesforce version of the package.xml', parseInt)
@@ -88,7 +88,6 @@ program
 			var operation = fileName.slice(0,1);
 			// remove the operation and spaces from fileName
 			fileName = fileName.slice(1).trim();
-			if (debugMsgs) console.log('fileName: ' + fileName);
 
 			//ensure file is inside of src directory of project
 			if (fileName && fileName.substring(0, rootdir.length) === rootdir)
@@ -117,8 +116,8 @@ program
 					}
 				}
 
-				if (debugMsgs) console.log('parts: ' + parts);
-				if (debugMsgs) console.log('parts.length: ' + parts.length);
+				if (debugMsgs && operation === 'D') console.log('parts: ' + parts);
+				if (debugMsgs && operation === 'D') console.log('parts.length: ' + parts.length);
 
 				// Check for invalid fileName, likely due to data stream exceeding buffer size resulting in incomplete string
 				// TODO: need a way to ensure that full fileNames are processed - increase buffer size??
@@ -147,7 +146,7 @@ program
 					meta = parts[2].split('.')[0].replace('-meta', '');
 				}
 
-				if (debugMsgs) console.log('meta: ' + meta);
+				if (debugMsgs && operation === 'D') console.log('meta: ' + meta);
 
 				if (operation === 'A' || operation === 'M')
 				{
@@ -218,7 +217,6 @@ program
 
 			copyFiles(currentDir, buildDir, fileListForCopy);
 			console.log('Successfully created package.xml and files in %s', buildDir);
-
 		});
 
 		if (deletesHaveOccurred) {
@@ -238,4 +236,4 @@ program
 			program.help();
 	};
 
-program.parse(process.argv);
+// program.parse(process.argv);
