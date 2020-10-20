@@ -1,6 +1,6 @@
 {
   "name": "sf-git-packager",
-  "version": "0.0.7a",
+  "version": "0.0.7b",
   "description": "CLI tool for building Salesforce.com package.xml files from git diffs",
   "main": "index.js",
   "bin": {

@@ -30,7 +30,6 @@ program
 	.option('-p, --pversion [version]', 'Salesforce version of the package.xml', parseInt)
 	.option('-x, --destructive', 'Only include destructive (deleted) changes')
 	.option('-s, --src <source directory>', 'Root source directory. Defaults to force-app', 'force-app')
-	.option('-v, --version', 'Display version')
 	.action(function (compare, branch, target) {
 
 		if (!branch || !compare) {
@@ -40,12 +39,6 @@ program
 		}
 
 		console.log('Running sfpackage');
-
-		if (program.version)
-		{
-			program.help();
-			process.exit(0);
-		}
 
 		var dryrun = false;
 		if (program.dryrun) {
