@@ -20,7 +20,7 @@ var util = require('util'),
 	buildPackageDir = require('./lib/metaUtils').buildPackageDir,
 	copyFiles = require('./lib/metaUtils').copyFiles,
 	packageVersion = require('./package.json').version;
-var debugMsgs = false;
+var debugMsgs = true;
 
 
 program
@@ -134,11 +134,18 @@ program
 					// Processing metadata with nested folders e.g. emails, documents, reports
 					meta = parts[2] + '/' + parts[3].split('.')[0];
 				}
-				else if (parts.length === 5 && (parts[3] == 'fields' || parts[3] == 'validationRules'))
+				else if (parts.length === 5)
 				{
-					// Processing metadata with nested folders e.g. emails, documents, reports
-					meta = parts[2] + '.' + parts[4].split('.')[0];
-					metaProperty = parts[3];
+					if (debugMsgs) console.log('part 3: ' + parts[3]);
+					if (debugMsgs) console.log('part 4: ' + parts[4]);
+					if (debugMsgs) console.log('part 5: ' + parts[5]);
+
+					if (parts[3] == 'fields' || parts[3] == 'validationRules')
+					{
+						// Processing metadata with nested folders e.g. emails, documents, reports
+						meta = parts[2] + '.' + parts[4].split('.')[0];
+						metaProperty = parts[3];
+					}
 				}
 				else
 				{
