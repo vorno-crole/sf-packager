@@ -16,6 +16,7 @@
 var program = require('commander');
 var util = require('util'),
 	spawnSync = require('child_process').spawnSync,
+	subMetaContains = require('./lib/metaUtils').subMetaContains,
 	packageWriter = require('./lib/metaUtils').packageWriter,
 	buildPackageDir = require('./lib/metaUtils').buildPackageDir,
 	copyFiles = require('./lib/metaUtils').copyFiles,
@@ -110,7 +111,7 @@ program
 				{
 					if (removeParts.includes(parts[i]))
 					{
-						if (debugMsgs) console.log('Removing: ' + parts[i]);
+						//if (debugMsgs) console.log('Removing: ' + parts[i]);
 						parts.splice(i, 1);
 						i--;
 					}
@@ -134,11 +135,18 @@ program
 					// Processing metadata with nested folders e.g. emails, documents, reports
 					meta = parts[2] + '/' + parts[3].split('.')[0];
 				}
-				else if (parts.length === 5 && (parts[3] == 'fields' || parts[3] == 'validationRules'))
+				else if (parts.length === 5)
 				{
-					// Processing metadata with nested folders e.g. emails, documents, reports
-					meta = parts[2] + '.' + parts[4].split('.')[0];
-					metaProperty = parts[3];
+					if (debugMsgs && operation === 'D') console.log('part 3: ' + parts[2]);
+					if (debugMsgs && operation === 'D') console.log('part 4: ' + parts[3]);
+					if (debugMsgs && operation === 'D') console.log('part 5: ' + parts[4]);
+
+					if (subMetaContains(parts[3]))
+					{
+						// Processing metadata with nested folders e.g. emails, documents, reports
+						meta = parts[2] + '.' + parts[4].split('.')[0];
+						metaProperty = parts[3];
+					}
 				}
 				else
 				{
